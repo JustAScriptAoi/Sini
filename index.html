@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="repo-name" id="repoNameMeta" content="verified-redirector">
+  <title>⚡ Nexus • verified redirect</title>
+  <meta name="description" content="Trusted secure forwarding"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✓</text></svg>">
+  
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src https://fonts.gstatic.com;
+    connect-src 'self' https:;
+  ">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ----- reset / base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #03050b;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .gradient-sphere {
+      position: absolute;
+      width: 70vmax;
+      height: 70vmax;
+      right: -20vmax;
+      top: -20vmax;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.15) 0%, rgba(20, 220, 250, 0.25) 40%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(90px);
+      animation: pulseSphere 12s infinite alternate;
+    }
+
+    .gradient-sphere-2 {
+      position: absolute;
+      width: 70vmax;
+      height: 70vmax;
+      left: -20vmax;
+      bottom: -20vmax;
+      background: radial-gradient(circle at 70% 70%, rgba(180, 100, 255, 0.3) 0%, rgba(120, 80, 255, 0.2) 40%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: pulseSphere2 15s infinite alternate;
+    }
+
+    @keyframes pulseSphere {
+      0% { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+    @keyframes pulseSphere2 {
+      0% { opacity: 0.4; transform: scale(1); }
+      100% { opacity: 0.9; transform: scale(1.3); }
+    }
+
+    /* ----- glass effect with extra shine ----- */
+    .glass-effect {
+      background: rgba(8, 15, 28, 0.6);
+      backdrop-filter: blur(12px) saturate(200%);
+      -webkit-backdrop-filter: blur(12px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 2rem;
+      box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    }
+
+    /* ----- container & layout ----- */
+    .container {
+      max-width: 650px;
+      width: 90%;
+      margin: 2rem auto;
+      position: relative;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 60px;
+      background: rgba(5, 12, 24, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #ccc;
+      padding: 0.4rem 1rem 0.4rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: #22d3ee66;
+      color: white;
+    }
+
+    .nav-brand {
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #ffffff, #b3d0ff, #a67cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #b3f0ff;
+      background: rgba(34, 211, 238, 0.12);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      border: 1px solid #22d3ee30;
+      backdrop-filter: blur(4px);
+    }
+    .security-badge .dot {
+      color: #22ffea;
+      font-size: 1.2rem;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink {
+      0%,100%{ opacity:1; } 50%{ opacity:0.4; }
+    }
+
+    /* ----- main card with verified stamp ----- */
+    .card {
+      padding: 2.8rem 2rem 2rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "✓ VERIFIED SOURCE";
+      position: absolute;
+      bottom: 10px;
+      right: -25px;
+      background: rgba(20, 220, 150, 0.2);
+      color: #88ffdd;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 2.5rem;
+      transform: rotate(-45deg);
+      letter-spacing: 1px;
+      border: 1px solid #22eeaa30;
+      backdrop-filter: blur(4px);
+      border-radius: 4px;
+      box-shadow: 0 0 8px #00ffaa20;
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .icon-wrapper {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .icon-wrapper::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #aaf0ff30 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+      scale: 1.8;
+      filter: blur(10px);
+    }
+
+    .icon-circle {
+      width: 80px;
+      height: 80px;
+      background: rgba(20, 50, 80, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(100, 220, 250, 0.4);
+      box-shadow: 0 0 30px #00aaff60, 0 10px 20px #00000080;
+    }
+    .icon-circle svg {
+      stroke: #c6ebff;
+      filter: drop-shadow(0 0 4px cyan);
+      width: 36px;
+      height: 36px;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      background: linear-gradient(to bottom, #fff, #b8ddff, #b38eff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: #b0c8ff;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.02);
+      padding: 0.3rem 1.2rem;
+      border-radius: 60px;
+      border: 1px solid #ffffff10;
+    }
+
+    .progress-section {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      background: rgba(0, 20, 40, 0.5);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: inset 0 2px 4px #00000060;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00c6ff, #8f6eff, #ff6ec4);
+      border-radius: 20px;
+      transition: width 0.25s ease;
+      box-shadow: 0 0 20px #ff6ec4, 0 0 8px cyan;
+    }
+
+    .status-text {
+      font-size: 1rem;
+      color: #ffffffcc;
+      font-weight: 400;
+      background: rgba(0, 10, 20, 0.5);
+      display: inline-block;
+      padding: 0.2rem 1.2rem;
+      border-radius: 60px;
+      border: 1px solid #3f5e8c60;
+      backdrop-filter: blur(4px);
+    }
+
+    .error-text {
+      color: #ff9999;
+      font-size: 0.9rem;
+      min-height: 1.8rem;
+    }
+
+    .features {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0 1rem;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #f0f4ff;
+      background: rgba(255,255,255,0.02);
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid #3a5278;
+      backdrop-filter: blur(4px);
+    }
+
+    .feature-item svg {
+      stroke: #9ad0ff;
+    }
+
+    .card-footer {
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: #9aaed0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-top: 1px solid #33558860;
+      padding-top: 1.5rem;
+    }
+
+    /* ----- enhanced info panel (verified source panel) ----- */
+    .info-panel {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 330px;
+      max-width: calc(100% - 3rem);
+      padding: 1.8rem 1.5rem;
+      transform: translateX(150%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      z-index: 100;
+      border-radius: 2rem;
+      background: rgba(12, 22, 40, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid #58aaff40;
+      box-shadow: 0 30px 50px #00000080, 0 0 0 1px #58aaff20 inset;
+    }
+
+    .info-panel.visible {
+      transform: translateX(0);
+    }
+
+    .info-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #fff, #b0d0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .close-btn {
+      background: rgba(255,255,255,0.05);
+      border: none;
+      color: #ccd9ff;
+      font-size: 2rem;
+      line-height: 1;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #5577aa60;
+    }
+    .close-btn:hover {
+      background: #5577aa30;
+      color: white;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.5rem;
+      margin-bottom: 1.8rem;
+      background: #0a1428;
+      padding: 1rem;
+      border-radius: 1.5rem;
+      border: 1px solid #2f5090;
+    }
+
+    .info-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .info-label {
+      font-size: 0.65rem;
+      color: #8caae0;
+      text-transform: uppercase;
+    }
+    .info-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 0 8px cyan;
+    }
+
+    .security-status {
+      background: #0b1a2e;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid #2e73b0;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      color: #d0e2ff;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #2e5090;
+    }
+    .status-item:last-child { border: none; }
+
+    .auth-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(145deg, #1a2f50, #0d1c38);
+      border: 1px solid #40a0ff;
+      padding: 1rem 1rem;
+      border-radius: 60px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+      box-shadow: 0 0 15px #2080ff60;
+    }
+    .auth-link:hover {
+      background: #1f3f70;
+      border-color: #80e0ff;
+      box-shadow: 0 0 25px #00b7ff;
+    }
+
+    /* micro-badge */
+    .verified-chip {
+      display: inline-block;
+      background: #1f4a3a;
+      border: 1px solid #2ecc90;
+      border-radius: 40px;
+      padding: 0.1rem 1rem;
+      font-size: 0.7rem;
+      color: #b0ffde;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 500px) {
+      .card { padding: 2rem 1.2rem; }
+      .features { gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay">
+    <div class="gradient-sphere"></div>
+    <div class="gradient-sphere-2"></div>
+  </div>
+  
+  <div class="container">
+    <div class="top-nav glass-effect">
+      <button class="nav-btn" onclick="toggleInfoPopup()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <span>source info</span>
+      </button>
+      
+      <div class="nav-brand">
+        ⚡ NEXUS <span style="font-size:0.8rem; background:#1f3a60; padding:0.1rem 0.6rem; border-radius:30px; margin-left:6px;">✓</span>
+      </div>
+
+      <div class="security-badge">
+        <span class="dot">●</span>
+        <span>VERIFIED</span>
+      </div>
+    </div>
+
+    <div class="card glass-effect">
+      <div class="card-body">
+        <div class="icon-wrapper">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20 11L9 17l-5-5 2-2 3 3 9-7 2 2z"/>
+              <path d="M20 11v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- interesting verified headline -->
+        <h1>verified source</h1>
+        <p class="subtitle">
+          <span>⚡ trust validated · redirecting securely</span>
+          <span class="verified-chip">✓✓ NEXUS</span>
+        </p>
+
+        <div class="progress-section">
+          <div class="progress-bar glass-effect">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+          </div>
+          <p id="status-text" class="status-text">🔐 establishing verified tunnel...</p>
+        </div>
+
+        <p id="error-text" class="error-text"></p>
+
+        <div class="features">
+          <div class="feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span>origin verified</span>
+          </div>
+          <div class="feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>secure route</span>
+          </div>
+          <div class="feature-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            <span>trusted</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <span class="footer-text">✓ NEXUS verified gateway ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="infoPopup" class="info-panel glass-effect">
+    <div class="info-panel-header">
+      <span>⚡ verified source panel</span>
+      <button class="close-btn" onclick="toggleInfoPopup()">×</button>
+    </div>
+    
+    <div class="info-panel-content">
+      <div class="info-grid">
+        <div class="info-group">
+          <span class="info-label">source</span>
+          <span class="info-value">NEXUS</span>
+        </div>
+        <div class="info-group">
+          <span class="info-label">grade</span>
+          <span class="info-value">A++</span>
+        </div>
+        <div class="info-group">
+          <span class="info-label">redirects</span>
+          <span class="info-value">10k+</span>
+        </div>
+        <div class="info-group">
+          <span class="info-label">uptime</span>
+          <span class="info-value">99.99%</span>
+        </div>
+      </div>
+
+      <div class="security-status">
+        <div class="status-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#30e0a0" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <span>✅ signed certificate</span>
+        </div>
+        <div class="status-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#30e0a0" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <span>🔒 end-to-end verified</span>
+        </div>
+        <div class="status-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b0b0ff" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <span>⚡ nexus root trust</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-panel-footer">
+      <a href="https://techsoftwares.net/gari/" target="_blank" class="auth-link">
+        <span>▶ ENTER VERIFIED SITE</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const progressFill = document.getElementById('progressFill');
+      const statusEl = document.getElementById('status-text');
+      
+      // interesting verified redirect steps
+      const steps = [0, 12, 28, 45, 62, 78, 91, 100];
+      const messages = [
+        '🔐 establishing verified tunnel...',
+        '✓ source certificate validated',
+        '⚡ nexus handshake',
+        '🔁 routing through secure node',
+        '✅ trust chain confirmed',
+        '⌛ preparing redirect',
+        '⏳ forwarding you now',
+        '✨ redirecting to verified source'
+      ];
+      
+      let stepIndex = 0;
+      
+      function updateProgress() {
+        if (stepIndex < steps.length) {
+          progressFill.style.width = steps[stepIndex] + '%';
+          statusEl.textContent = messages[stepIndex];
+          
+          if (stepIndex === steps.length - 1) {
+            setTimeout(() => {
+              window.location.href = 'https://techsoftwares.net/gari/';
+            }, 500);
+            return;
+          }
+          
+          stepIndex++;
+          setTimeout(updateProgress, 280);
+        }
+      }
+      
+      setTimeout(updateProgress, 220);
+
+      window.toggleInfoPopup = function() {
+        document.getElementById('infoPopup').classList.toggle('visible');
+      };
+
+      document.addEventListener('click', function(e) {
+        const panel = document.getElementById('infoPopup');
+        const btn = document.querySelector('.nav-btn');
+        if (panel.classList.contains('visible') && 
+            !panel.contains(e.target) && 
+            !btn.contains(e.target)) {
+          panel.classList.remove('visible');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
