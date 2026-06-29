@@ -1,6 +1,6 @@
 local Colorius = {}
 
-local Script_Title = "Colorius Uiv"
+local Script_Title = "Colorius"
 
 
 -- Instances:
