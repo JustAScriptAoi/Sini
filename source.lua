@@ -1,6 +1,6 @@
 local lib = {}
 
-local Script_Title = "Arceus X <font color=\"rgb(255, 0, 0)\">|</font> Ui Lib"
+local Script_Title = "Arceus X <font color=\"rgb(120, 170, 255)\">|</font> Ui Lib"
 
 
 -- Instances:
@@ -11,6 +11,11 @@ local Intro = Instance.new("Frame")
 local UICorner_2 = Instance.new("UICorner")
 local Logo = Instance.new("ImageButton")
 local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+local TabBar = Instance.new("Frame")
+local UIListLayout_Tab = Instance.new("UIListLayout")
+local TabButton = Instance.new("TextButton")
+local UICorner_Tab = Instance.new("UICorner")
+local UIGradient_Tab = Instance.new("UIGradient")
 local Title = Instance.new("TextLabel")
 local Menu = Instance.new("ScrollingFrame")
 local UIListLayout = Instance.new("UIListLayout")
@@ -42,6 +47,36 @@ local Name_4 = Instance.new("TextLabel")
 local UIGradient_4 = Instance.new("UIGradient")
 local Img_2 = Instance.new("TextLabel")
 local UIAspectRatioConstraint_5 = Instance.new("UIAspectRatioConstraint")
+
+-- Slider Instances:
+local Slider = Instance.new("Frame")
+local UICorner_Slider = Instance.new("UICorner")
+local SliderName = Instance.new("TextLabel")
+local SliderBar = Instance.new("Frame")
+local UICorner_SliderBar = Instance.new("UICorner")
+local SliderFill = Instance.new("Frame")
+local UICorner_SliderFill = Instance.new("UICorner")
+local UIGradient_SliderFill = Instance.new("UIGradient")
+local SliderInputBox = Instance.new("TextBox")
+local UICorner_SliderInputBox = Instance.new("UICorner")
+local SliderDrag = Instance.new("TextButton")
+
+-- DropdownMulti Instances:
+local DropdownMulti = Instance.new("ImageButton")
+local UICorner_DropdownMulti = Instance.new("UICorner")
+local DropdownMultiName = Instance.new("TextLabel")
+local UIGradient_DropdownMulti = Instance.new("UIGradient")
+local DropdownMultiImg = Instance.new("TextLabel")
+local UIAspectRatioConstraint_DropdownMulti = Instance.new("UIAspectRatioConstraint")
+local DropdownMultiElem = Instance.new("ImageButton")
+local UICorner_DropdownMultiElem = Instance.new("UICorner")
+local DropdownMultiElemName = Instance.new("TextLabel")
+local UIGradient_DropdownMultiElem = Instance.new("UIGradient")
+local DropdownMultiElemToggle = Instance.new("ImageButton")
+local UICorner_DropdownMultiElemToggle = Instance.new("UICorner")
+local DropdownMultiElemCheck = Instance.new("Frame")
+local UIAspectRatioConstraint_DropdownMultiElemToggle = Instance.new("UIAspectRatioConstraint")
+local UICorner_DropdownMultiElemCheck = Instance.new("UICorner")
 
 --Properties:
 
@@ -82,19 +117,52 @@ Logo.BorderSizePixel = 0
 Logo.Position = UDim2.new(0.5, 0, 0.5, 0)
 Logo.Size = UDim2.new(0.75, 0, 0.75, 0)
 Logo.ZIndex = 2
-Logo.Image = "http://www.roblox.com/asset/?id=9178187770"
+Logo.Image = "http://www.roblox.com/asset/?id=94158064895958"
 Logo.ScaleType = Enum.ScaleType.Fit
 Logo.Active = false
 
 UIAspectRatioConstraint.Parent = Logo
 
+TabBar.Name = "TabBar"
+TabBar.Parent = Main
+TabBar.AnchorPoint = Vector2.new(0, 0)
+TabBar.BackgroundTransparency = 1
+TabBar.BorderSizePixel = 0
+TabBar.Position = UDim2.new(0.025, 0, 0.035, 0)
+TabBar.Size = UDim2.new(0.5, 0, 0.085, 0)
+
+UIListLayout_Tab.Parent = TabBar
+UIListLayout_Tab.FillDirection = Enum.FillDirection.Horizontal
+UIListLayout_Tab.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_Tab.Padding = UDim.new(0.05, 0)
+
+TabButton.Name = "TabButton"
+--TabButton.Parent = Arceus
+TabButton.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+TabButton.BorderSizePixel = 0
+TabButton.Size = UDim2.new(0, 70, 1, 0)
+TabButton.Font = Enum.Font.TitilliumWeb
+TabButton.FontFace = Font.new("rbxasset://fonts/families/TitilliumWeb.json", Enum.FontWeight.Bold)
+TabButton.Text = "Main"
+TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TabButton.TextScaled = true
+TabButton.TextSize = 14
+TabButton.TextWrapped = true
+TabButton.AutoButtonColor = false
+
+UICorner_Tab.CornerRadius = UDim.new(0.3, 0)
+UICorner_Tab.Parent = TabButton
+
+UIGradient_Tab.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(90, 140, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(160, 90, 255))}
+UIGradient_Tab.Parent = TabButton
+
 Title.Name = "Title"
 Title.Parent = Main
-Title.AnchorPoint = Vector2.new(1, 0)
+Title.AnchorPoint = Vector2.new(0, 0)
 Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Title.BackgroundTransparency = 1
 Title.BorderSizePixel = 0
-Title.Position = UDim2.new(0.975, 0, 0.075, 0)
+Title.Position = UDim2.new(0.025, 0, 0.135, 0)
 Title.Size = UDim2.new(0.85, 0, 0.155, 0)
 Title.Font = Enum.Font.TitilliumWeb
 Title.FontFace = Font.new("rbxasset://fonts/families/TitilliumWeb.json", Enum.FontWeight.Bold)
@@ -116,7 +184,7 @@ Menu.BackgroundTransparency = 1
 Menu.AutomaticCanvasSize = Enum.AutomaticSize.Y
 Menu.BorderSizePixel = 0
 Menu.Position = UDim2.new(0.5, 0, 0.95, 0)
-Menu.Size = UDim2.new(0.95, 0, 0.65, 0)
+Menu.Size = UDim2.new(0.95, 0, 0.6, 0)
 Menu.CanvasSize = UDim2.new(0, 0, 0, 0)
 Menu.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
 Menu.ScrollBarThickness = Menu.AbsoluteSize.X/25
@@ -149,7 +217,7 @@ UICorner_4.Parent = Enabled
 Check.Name = "Check"
 Check.Parent = Enabled
 Check.AnchorPoint = Vector2.new(0.5, 0.5)
-Check.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Check.BackgroundColor3 = Color3.fromRGB(120, 150, 255)
 Check.Position = UDim2.new(0.5, 0, 0.5, 0)
 Check.Size = UDim2.new(0.65, 0, 0.65, 0)
 
@@ -157,6 +225,10 @@ UIAspectRatioConstraint_3.Parent = Check
 
 UICorner_5.CornerRadius = UDim.new(0.3, 0)
 UICorner_5.Parent = Check
+
+local UIGradient_Check = Instance.new("UIGradient")
+UIGradient_Check.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(90, 140, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(160, 90, 255))}
+UIGradient_Check.Parent = Check
 
 Name.Name = "Name"
 Name.Parent = Toggle
@@ -220,7 +292,7 @@ Close.Position = UDim2.new(0.8, 0, 0.1, 0)
 Close.Size = UDim2.new(0.15, 0, 0.125, 0)
 Close.Font = Enum.Font.FredokaOne
 Close.Text = "X"
-Close.TextColor3 = Color3.fromRGB(255, 0, 0)
+Close.TextColor3 = Color3.fromRGB(120, 150, 255)
 Close.TextScaled = true
 Close.TextSize = 14
 Close.TextWrapped = true
@@ -311,40 +383,32 @@ Img_2.Position = UDim2.new(0.975, 0, 0.5, 0)
 Img_2.Size = UDim2.new(0.75, 0, 0.75, 0)
 Img_2.Font = Enum.Font.FredokaOne
 Img_2.Text = "^"
-Img_2.TextColor3 = Color3.fromRGB(255, 0, 0)
+Img_2.TextColor3 = Color3.fromRGB(120, 150, 255)
 Img_2.TextScaled = true
 Img_2.TextSize = 14
 Img_2.TextWrapped = true
 
 UIAspectRatioConstraint_5.Parent = Img_2
 
-local Slider = Instance.new("Frame")
-local UICorner_9 = Instance.new("UICorner")
-local SliderName = Instance.new("TextLabel")
-local UIGradient_5 = Instance.new("UIGradient")
-local SliderBar = Instance.new("Frame")
-local UICorner_10 = Instance.new("UICorner")
-local SliderFill = Instance.new("Frame")
-local UICorner_11 = Instance.new("UICorner")
-local SliderHandle = Instance.new("Frame")
-local UICorner_12 = Instance.new("UICorner")
-local SliderInput = Instance.new("TextButton")
+-- Slider Properties:
 
 Slider.Name = "Slider"
+Slider.Visible = false
+--Slider.Parent = Arceus
 Slider.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
 Slider.Size = UDim2.new(0.95, 0, 0, 50)
+Slider.ClipsDescendants = false
 
-UICorner_9.CornerRadius = UDim.new(0.25, 0)
-UICorner_9.Parent = Slider
+UICorner_Slider.CornerRadius = UDim.new(0.25, 0)
+UICorner_Slider.Parent = Slider
 
 SliderName.Name = "Name"
 SliderName.Parent = Slider
 SliderName.AnchorPoint = Vector2.new(0, 0.5)
-SliderName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 SliderName.BackgroundTransparency = 1
 SliderName.BorderSizePixel = 0
-SliderName.Position = UDim2.new(0.05, 0, 0.225, 0)
-SliderName.Size = UDim2.new(0.9, 0, 0.4, 0)
+SliderName.Position = UDim2.new(0.35, 0, 0.25, 0)
+SliderName.Size = UDim2.new(0.6, 0, 0.45, 0)
 SliderName.Font = Enum.Font.TitilliumWeb
 SliderName.Text = "Slider"
 SliderName.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -354,164 +418,155 @@ SliderName.TextWrapped = true
 SliderName.TextXAlignment = Enum.TextXAlignment.Left
 SliderName.TextYAlignment = Enum.TextYAlignment.Bottom
 
-UIGradient_5.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
-UIGradient_5.Parent = Slider
+SliderInputBox.Name = "InputBox"
+SliderInputBox.Parent = Slider
+SliderInputBox.AnchorPoint = Vector2.new(0, 0.5)
+SliderInputBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+SliderInputBox.BorderSizePixel = 0
+SliderInputBox.Position = UDim2.new(0.03, 0, 0.5, 0)
+SliderInputBox.Size = UDim2.new(0.22, 0, 0.7, 0)
+SliderInputBox.Font = Enum.Font.TitilliumWeb
+SliderInputBox.Text = "0"
+SliderInputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+SliderInputBox.TextScaled = true
+SliderInputBox.TextSize = 14
+SliderInputBox.TextWrapped = true
+SliderInputBox.ClearTextOnFocus = false
+
+UICorner_SliderInputBox.CornerRadius = UDim.new(0.45, 0)
+UICorner_SliderInputBox.Parent = SliderInputBox
 
 SliderBar.Name = "Bar"
 SliderBar.Parent = Slider
-SliderBar.AnchorPoint = Vector2.new(0.5, 1)
+SliderBar.AnchorPoint = Vector2.new(0, 1)
 SliderBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 SliderBar.BorderSizePixel = 0
-SliderBar.Position = UDim2.new(0.5, 0, 0.85, 0)
-SliderBar.Size = UDim2.new(0.9, 0, 0.12, 0)
+SliderBar.Position = UDim2.new(0.35, 0, 0.85, 0)
+SliderBar.Size = UDim2.new(0.6, 0, 0.18, 0)
 
-UICorner_10.CornerRadius = UDim.new(1, 0)
-UICorner_10.Parent = SliderBar
+UICorner_SliderBar.CornerRadius = UDim.new(1, 0)
+UICorner_SliderBar.Parent = SliderBar
 
 SliderFill.Name = "Fill"
 SliderFill.Parent = SliderBar
-SliderFill.AnchorPoint = Vector2.new(0, 0.5)
-SliderFill.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 SliderFill.BorderSizePixel = 0
-SliderFill.Position = UDim2.new(0, 0, 0.5, 0)
 SliderFill.Size = UDim2.new(0, 0, 1, 0)
 
-UICorner_11.CornerRadius = UDim.new(1, 0)
-UICorner_11.Parent = SliderFill
+UICorner_SliderFill.CornerRadius = UDim.new(1, 0)
+UICorner_SliderFill.Parent = SliderFill
 
-SliderHandle.Name = "Handle"
-SliderHandle.Parent = SliderBar
-SliderHandle.AnchorPoint = Vector2.new(0.5, 0.5)
-SliderHandle.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-SliderHandle.BorderSizePixel = 0
-SliderHandle.Position = UDim2.new(0, 0, 0.5, 0)
-SliderHandle.Size = UDim2.new(0, 6, 1.8, 0)
-SliderHandle.ZIndex = 2
+UIGradient_SliderFill.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(90, 140, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(160, 90, 255))}
+UIGradient_SliderFill.Parent = SliderFill
 
-UICorner_12.CornerRadius = UDim.new(0.3, 0)
-UICorner_12.Parent = SliderHandle
+SliderDrag.Name = "Drag"
+SliderDrag.Parent = SliderBar
+SliderDrag.BackgroundTransparency = 1
+SliderDrag.BorderSizePixel = 0
+SliderDrag.Position = UDim2.new(0, 0, -1, 0)
+SliderDrag.Size = UDim2.new(1, 0, 3, 0)
+SliderDrag.Text = ""
+SliderDrag.ZIndex = 5
 
-SliderInput.Name = "Input"
-SliderInput.Parent = SliderBar
-SliderInput.BackgroundTransparency = 1
-SliderInput.BorderSizePixel = 0
-SliderInput.Size = UDim2.new(1, 0, 1, 0)
-SliderInput.Text = ""
-SliderInput.TextTransparency = 1
-SliderInput.ZIndex = 3
-
-local DropdownMulti = Instance.new("ImageButton")
-local UICorner_13 = Instance.new("UICorner")
-local DMName = Instance.new("TextLabel")
-local UIGradient_6 = Instance.new("UIGradient")
-local DMImg = Instance.new("TextLabel")
-local UIAspectRatioConstraint_6 = Instance.new("UIAspectRatioConstraint")
-local DMToggleElem = Instance.new("ImageButton")
-local UICorner_14 = Instance.new("UICorner")
-local DMEnabled = Instance.new("Frame")
-local UIAspectRatioConstraint_7 = Instance.new("UIAspectRatioConstraint")
-local UICorner_15 = Instance.new("UICorner")
-local DMCheck = Instance.new("Frame")
-local UIAspectRatioConstraint_8 = Instance.new("UIAspectRatioConstraint")
-local UICorner_16 = Instance.new("UICorner")
-local DMElemName = Instance.new("TextLabel")
-local UIGradient_7 = Instance.new("UIGradient")
+-- DropdownMulti Properties:
 
 DropdownMulti.Name = "DropdownMulti"
 DropdownMulti.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
 DropdownMulti.Size = UDim2.new(0.95, 0, 0, 50)
 
-UICorner_13.CornerRadius = UDim.new(0.25, 0)
-UICorner_13.Parent = DropdownMulti
+UICorner_DropdownMulti.CornerRadius = UDim.new(0.25, 0)
+UICorner_DropdownMulti.Parent = DropdownMulti
 
-DMName.Name = "Name"
-DMName.Parent = DropdownMulti
-DMName.AnchorPoint = Vector2.new(0, 0.5)
-DMName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-DMName.BackgroundTransparency = 1
-DMName.BorderSizePixel = 0
-DMName.Position = UDim2.new(0.05, 0, 0.5, 0)
-DMName.Size = UDim2.new(0.75, 0, 0.8, 0)
-DMName.Font = Enum.Font.TitilliumWeb
-DMName.Text = "Enabled"
-DMName.TextColor3 = Color3.fromRGB(255, 255, 255)
-DMName.TextScaled = true
-DMName.TextSize = 14
-DMName.TextWrapped = true
-DMName.TextXAlignment = Enum.TextXAlignment.Left
-DMName.TextYAlignment = Enum.TextYAlignment.Bottom
+DropdownMultiName.Name = "Name"
+DropdownMultiName.Parent = DropdownMulti
+DropdownMultiName.AnchorPoint = Vector2.new(0, 0.5)
+DropdownMultiName.BackgroundTransparency = 1
+DropdownMultiName.BorderSizePixel = 0
+DropdownMultiName.Position = UDim2.new(0.05, 0, 0.5, 0)
+DropdownMultiName.Size = UDim2.new(0.75, 0, 0.8, 0)
+DropdownMultiName.Font = Enum.Font.TitilliumWeb
+DropdownMultiName.Text = "DropdownMulti"
+DropdownMultiName.TextColor3 = Color3.fromRGB(255, 255, 255)
+DropdownMultiName.TextScaled = true
+DropdownMultiName.TextSize = 14
+DropdownMultiName.TextWrapped = true
+DropdownMultiName.TextXAlignment = Enum.TextXAlignment.Left
+DropdownMultiName.TextYAlignment = Enum.TextYAlignment.Bottom
 
-UIGradient_6.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
-UIGradient_6.Parent = DropdownMulti
+UIGradient_DropdownMulti.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
+UIGradient_DropdownMulti.Rotation = 180
+UIGradient_DropdownMulti.Parent = DropdownMulti
 
-DMImg.Name = "Img"
-DMImg.Parent = DropdownMulti
-DMImg.AnchorPoint = Vector2.new(1, 0.5)
-DMImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-DMImg.BackgroundTransparency = 1
-DMImg.BorderSizePixel = 0
-DMImg.Position = UDim2.new(0.975, 0, 0.5, 0)
-DMImg.Rotation = 180
-DMImg.Size = UDim2.new(0.75, 0, 0.75, 0)
-DMImg.Font = Enum.Font.FredokaOne
-DMImg.Text = "^"
-DMImg.TextColor3 = Color3.fromRGB(255, 0, 0)
-DMImg.TextScaled = true
-DMImg.TextSize = 14
-DMImg.TextWrapped = true
+DropdownMultiImg.Name = "Img"
+DropdownMultiImg.Parent = DropdownMulti
+DropdownMultiImg.AnchorPoint = Vector2.new(1, 0.5)
+DropdownMultiImg.BackgroundTransparency = 1
+DropdownMultiImg.BorderSizePixel = 0
+DropdownMultiImg.Position = UDim2.new(0.975, 0, 0.5, 0)
+DropdownMultiImg.Rotation = 180
+DropdownMultiImg.Size = UDim2.new(0.75, 0, 0.75, 0)
+DropdownMultiImg.Font = Enum.Font.FredokaOne
+DropdownMultiImg.Text = "^"
+DropdownMultiImg.TextColor3 = Color3.fromRGB(120, 150, 255)
+DropdownMultiImg.TextScaled = true
+DropdownMultiImg.TextSize = 14
+DropdownMultiImg.TextWrapped = true
 
-UIAspectRatioConstraint_6.Parent = DMImg
+UIAspectRatioConstraint_DropdownMulti.Parent = DropdownMultiImg
 
-DMToggleElem.Name = "DMToggleElem"
-DMToggleElem.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
-DMToggleElem.Size = UDim2.new(0.95, 0, 0, 50)
+DropdownMultiElem.Name = "DropdownMultiElem"
+DropdownMultiElem.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+DropdownMultiElem.Size = UDim2.new(0.95, 0, 0, 50)
 
-UICorner_14.CornerRadius = UDim.new(0.25, 0)
-UICorner_14.Parent = DMToggleElem
+UICorner_DropdownMultiElem.CornerRadius = UDim.new(0.25, 0)
+UICorner_DropdownMultiElem.Parent = DropdownMultiElem
 
-DMEnabled.Name = "Enabled"
-DMEnabled.Parent = DMToggleElem
-DMEnabled.AnchorPoint = Vector2.new(1, 0.5)
-DMEnabled.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-DMEnabled.Position = UDim2.new(0.975, 0, 0.5, 0)
-DMEnabled.Size = UDim2.new(0.75, 0, 0.75, 0)
+DropdownMultiElemName.Name = "Name"
+DropdownMultiElemName.Parent = DropdownMultiElem
+DropdownMultiElemName.AnchorPoint = Vector2.new(0, 0.5)
+DropdownMultiElemName.BackgroundTransparency = 1
+DropdownMultiElemName.BorderSizePixel = 0
+DropdownMultiElemName.Position = UDim2.new(0.05, 0, 0.5, 0)
+DropdownMultiElemName.Size = UDim2.new(0.6, 0, 0.8, 0)
+DropdownMultiElemName.Font = Enum.Font.TitilliumWeb
+DropdownMultiElemName.Text = "Option"
+DropdownMultiElemName.TextColor3 = Color3.fromRGB(255, 255, 255)
+DropdownMultiElemName.TextScaled = true
+DropdownMultiElemName.TextSize = 14
+DropdownMultiElemName.TextWrapped = true
+DropdownMultiElemName.TextXAlignment = Enum.TextXAlignment.Left
+DropdownMultiElemName.TextYAlignment = Enum.TextYAlignment.Bottom
 
-UIAspectRatioConstraint_7.Parent = DMEnabled
+UIGradient_DropdownMultiElem.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
+UIGradient_DropdownMultiElem.Rotation = 180
+UIGradient_DropdownMultiElem.Parent = DropdownMultiElem
 
-UICorner_15.CornerRadius = UDim.new(0.3, 0)
-UICorner_15.Parent = DMEnabled
+DropdownMultiElemToggle.Name = "Toggle"
+DropdownMultiElemToggle.Parent = DropdownMultiElem
+DropdownMultiElemToggle.AnchorPoint = Vector2.new(1, 0.5)
+DropdownMultiElemToggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+DropdownMultiElemToggle.Position = UDim2.new(0.95, 0, 0.5, 0)
+DropdownMultiElemToggle.Size = UDim2.new(0.18, 0, 0.55, 0)
 
-DMCheck.Name = "Check"
-DMCheck.Parent = DMEnabled
-DMCheck.AnchorPoint = Vector2.new(0.5, 0.5)
-DMCheck.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-DMCheck.Position = UDim2.new(0.5, 0, 0.5, 0)
-DMCheck.Size = UDim2.new(0.65, 0, 0.65, 0)
+UIAspectRatioConstraint_DropdownMultiElemToggle.AspectRatio = 1.8
+UIAspectRatioConstraint_DropdownMultiElemToggle.Parent = DropdownMultiElemToggle
 
-UIAspectRatioConstraint_8.Parent = DMCheck
+UICorner_DropdownMultiElemToggle.CornerRadius = UDim.new(0.5, 0)
+UICorner_DropdownMultiElemToggle.Parent = DropdownMultiElemToggle
 
-UICorner_16.CornerRadius = UDim.new(0.3, 0)
-UICorner_16.Parent = DMCheck
+DropdownMultiElemCheck.Name = "Check"
+DropdownMultiElemCheck.Parent = DropdownMultiElemToggle
+DropdownMultiElemCheck.AnchorPoint = Vector2.new(0, 0.5)
+DropdownMultiElemCheck.BackgroundColor3 = Color3.fromRGB(120, 150, 255)
+DropdownMultiElemCheck.BorderSizePixel = 0
+DropdownMultiElemCheck.Position = UDim2.new(0.06, 0, 0.5, 0)
+DropdownMultiElemCheck.Size = UDim2.new(0.4, 0, 0.8, 0)
 
-DMElemName.Name = "Name"
-DMElemName.Parent = DMToggleElem
-DMElemName.AnchorPoint = Vector2.new(0, 0.5)
-DMElemName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-DMElemName.BackgroundTransparency = 1
-DMElemName.BorderSizePixel = 0
-DMElemName.Position = UDim2.new(0.05, 0, 0.5, 0)
-DMElemName.Size = UDim2.new(0.75, 0, 0.8, 0)
-DMElemName.Font = Enum.Font.TitilliumWeb
-DMElemName.Text = "Option"
-DMElemName.TextColor3 = Color3.fromRGB(255, 255, 255)
-DMElemName.TextScaled = true
-DMElemName.TextSize = 14
-DMElemName.TextWrapped = true
-DMElemName.TextXAlignment = Enum.TextXAlignment.Left
-DMElemName.TextYAlignment = Enum.TextYAlignment.Bottom
+UICorner_DropdownMultiElemCheck.CornerRadius = UDim.new(0.5, 0)
+UICorner_DropdownMultiElemCheck.Parent = DropdownMultiElemCheck
 
-UIGradient_7.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
-UIGradient_7.Parent = DMToggleElem
+local UIGradient_DropdownMultiElemCheck = Instance.new("UIGradient")
+UIGradient_DropdownMultiElemCheck.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(90, 140, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(160, 90, 255))}
+UIGradient_DropdownMultiElemCheck.Parent = DropdownMultiElemCheck
 
 -- SCRIPT
 
@@ -721,58 +776,76 @@ function lib:AddSlider(name, min, max, default, funct, ...)
 	local value = math.clamp(default or min, min, max)
 	local dragging = false
 
-	local function setValue(v, tween)
-		value = math.clamp(v, min, max)
+	local Bar = newSlider:WaitForChild("Bar")
+	local Fill = Bar:WaitForChild("Fill")
+	local Drag = Bar:WaitForChild("Drag")
+	local InputBox = newSlider:WaitForChild("InputBox")
+
+	local function updateVisual(animated)
 		local alpha = (value - min) / (max - min)
+		local goal = {Size = UDim2.new(alpha, 0, 1, 0)}
 
-		local fillGoal = UDim2.new(alpha, 0, 1, 0)
-		local handleGoal = UDim2.new(alpha, 0, 0.5, 0)
-
-		if tween then
-			TweenService:Create(newSlider.Bar.Fill, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = fillGoal}):Play()
-			TweenService:Create(newSlider.Bar.Handle, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = handleGoal}):Play()
+		if animated then
+			TweenService:Create(Fill, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), goal):Play()
 		else
-			newSlider.Bar.Fill.Size = fillGoal
-			newSlider.Bar.Handle.Position = handleGoal
+			Fill.Size = goal.Size
 		end
 
-		newSlider:WaitForChild("Name").Text = name .. ": " .. tostring(value)
-		funct(value, unpack(args))
+		InputBox.Text = tostring(math.floor(value))
 	end
 
-	local function updateFromInput(input)
-		local bar = newSlider.Bar
-		local relative = math.clamp((input.Position.X - bar.AbsolutePosition.X) / bar.AbsoluteSize.X, 0, 1)
-		setValue(min + (relative * (max - min)))
+	local function setValue(newValue, animated)
+		newValue = math.clamp(newValue, min, max)
+		value = newValue
+		updateVisual(animated)
+		funct(math.floor(value), unpack(args))
 	end
 
-	newSlider.Bar.Input.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			updateFromInput(input)
-		end
+	local function fromXScale(xScale)
+		local alpha = math.clamp(xScale, 0, 1)
+		setValue(min + (max - min) * alpha, true)
+	end
+
+	Drag.MouseButton1Down:Connect(function()
+		dragging = true
 	end)
 
-	newSlider.Bar.Input.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = false
+	Drag.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
 		end
 	end)
 
 	game:GetService("UserInputService").InputChanged:Connect(function(input)
 		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-			updateFromInput(input)
+			local relative = (input.Position.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
+			fromXScale(relative)
 		end
 	end)
 
-	newSlider:WaitForChild("Name").Text = name .. ": " .. tostring(value)
+	game:GetService("UserInputService").InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = false
+		end
+	end)
+
+	InputBox.FocusLost:Connect(function(enterPressed)
+		local num = tonumber(InputBox.Text)
+		if num then
+			setValue(num, true)
+		else
+			InputBox.Text = tostring(math.floor(value))
+		end
+	end)
+
+	newSlider:WaitForChild("Name").Text = name
 	newSlider.Size = UDim2.new(0.95, 0, 0, element_height)
 	newSlider.Name = name
 	newSlider.Parent = Menu
 	newSlider.LayoutOrder = elements
 	newSlider.Visible = true
 
-	setValue(value, false)
+	updateVisual(false)
 
 	elements += 1
 	AddSpace(Menu)
@@ -784,17 +857,11 @@ function lib:AddDropdownMulti(text, options, funct, ...)
 	local newDropdown = DropdownMulti:Clone()
 	local enabled = false
 	local elems = {}
-	local selected = {}
+	local states = {}
 	local args = {...}
 
-	local function getSelectedText()
-		local names = {}
-		for _, name in ipairs(options) do
-			if selected[name] then
-				table.insert(names, name)
-			end
-		end
-		return #names > 0 and table.concat(names, ", ") or "None"
+	for _, name in ipairs(options) do
+		states[name] = false
 	end
 
 	local function setBoxState()
@@ -809,7 +876,7 @@ function lib:AddDropdownMulti(text, options, funct, ...)
 		setBoxState()
 	end)
 
-	newDropdown:WaitForChild("Name").Text = text .. ": " .. getSelectedText()
+	newDropdown:WaitForChild("Name").Text = text
 	newDropdown.Size = UDim2.new(0.95, 0, 0, element_height)
 	newDropdown.Name = text
 	newDropdown.Parent = Menu
@@ -820,20 +887,24 @@ function lib:AddDropdownMulti(text, options, funct, ...)
 	AddSpace(Menu)
 
 	for _, name in ipairs(options) do
-		selected[name] = false
-
-		local newElem = DMToggleElem:Clone()
+		local newElem = DropdownMultiElem:Clone()
 		table.insert(elems, newElem)
 
-		newElem.MouseButton1Click:Connect(function()
-			selected[name] = not selected[name]
-			newElem:WaitForChild("Enabled"):WaitForChild("Check").Visible = selected[name]
-			newDropdown:WaitForChild("Name").Text = text .. ": " .. getSelectedText()
+		local ToggleBtn = newElem:WaitForChild("Toggle")
+		local CheckFrame = ToggleBtn:WaitForChild("Check")
 
-			funct(name, selected[name], selected, unpack(args))
+		local function refreshCheck()
+			CheckFrame.Visible = states[name]
+		end
+
+		ToggleBtn.MouseButton1Click:Connect(function()
+			states[name] = not states[name]
+			refreshCheck()
+			funct(name, states[name], unpack(args))
 		end)
 
-		newElem:WaitForChild("Enabled"):WaitForChild("Check").Visible = false
+		refreshCheck()
+
 		newElem:WaitForChild("Name").Text = name
 		newElem.Size = UDim2.new(0.95, 0, 0, element_height)
 		newElem.Name = name
@@ -846,6 +917,21 @@ function lib:AddDropdownMulti(text, options, funct, ...)
 	end
 
 	return newDropdown
+end
+
+function lib:AddTab(name, funct)
+	local newTab = TabButton:Clone()
+
+	newTab.MouseButton1Click:Connect(function()
+		funct()
+	end)
+
+	newTab.Text = name
+	newTab.Name = name
+	newTab.Parent = TabBar
+	newTab.Visible = true
+
+	return newTab
 end
 
 function lib:SetTitle(txt)
@@ -868,7 +954,7 @@ end
 function lib:SetCloseBtnColor(r, g, b)
     Close.TextColor3 = Color3.fromRGB(r, g, b)
 	Img_2.TextColor3 = Color3.fromRGB(r, g, b)
-	Check.BackgroundColor3 = Color3.fromRGB(r, g, b)
+	DropdownMultiImg.TextColor3 = Color3.fromRGB(r, g, b)
 end
 
 function lib:SetButtonsColor(r, g ,b)
@@ -876,11 +962,22 @@ function lib:SetButtonsColor(r, g ,b)
 	Button.BackgroundColor3 = Color3.fromRGB(r, g, b)
 	ComboElem.BackgroundColor3 = Color3.fromRGB(r, g, b)
 	ComboBox.BackgroundColor3 = Color3.fromRGB(r, g, b)
+	Slider.BackgroundColor3 = Color3.fromRGB(r, g, b)
+	DropdownMulti.BackgroundColor3 = Color3.fromRGB(r, g, b)
+	DropdownMultiElem.BackgroundColor3 = Color3.fromRGB(r, g, b)
+end
+
+function lib:SetAccentGradient(color1, color2)
+	local grad = ColorSequence.new{ColorSequenceKeypoint.new(0.00, color1), ColorSequenceKeypoint.new(1.00, color2)}
+	UIGradient_SliderFill.Color = grad
+	UIGradient_Check.Color = grad
+	UIGradient_DropdownMultiElemCheck.Color = grad
+	UIGradient_Tab.Color = grad
 end
 
 function lib:SetTheme(theme)
 	if theme == "Default" then
-		
+		lib:SetAccentGradient(Color3.fromRGB(90, 140, 255), Color3.fromRGB(160, 90, 255))
 	elseif theme == "TomorrowNightBlue" then
 		lib:SetButtonsColor(74, 208, 238)
 		lib:SetCloseBtnColor(74, 208, 238)
